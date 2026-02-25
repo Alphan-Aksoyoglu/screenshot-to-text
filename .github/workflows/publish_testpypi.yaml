@@ -36,7 +36,7 @@ jobs:
         run: |
           DEV_VERSION="${{ steps.version.outputs.version }}.dev${{ github.run_number }}"
           echo "DEV_VERSION=$DEV_VERSION" >> $GITHUB_ENV
-          sed -i "s/__version__ = \".*\"/__version__ = \"$DEV_VERSION\"/" screenshot-to-text/__version__.py
+          sed -i "s/__version__ = \".*\"/__version__ = \"$DEV_VERSION\"/" src/screenshot-to-text/__version__.py
 
       - name: Build
         run: uv build
