@@ -21,8 +21,12 @@ jobs:
       - name: Get base version
         id: version
         run: |
-          VERSION=$(python - << 'EOF'
-          from screenshot-to-text.__version__ import __version__
+          # Use uv run to ensure the local package is accessible
+          VERSION=$(uv run python - << 'EOF'
+          import sys
+          # Add current directory to path if not installed
+          sys.path.append(".") 
+          from screenshot_to_text.__version__ import __version__
           print(__version__)
           EOF
           )
