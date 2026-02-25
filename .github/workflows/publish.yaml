@@ -1,0 +1,42 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Validate tag matches version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          VERSION=$(python - << 'EOF'
+          from screenshot-to-text.__version__ import __version__
+          print(__version__)
+          EOF
+          )
+
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "❌ Tag ($TAG) does not match __version__ ($VERSION)"
+            exit 1
+          fi
+
+      - name: Build
+        run: uv build
+
+      - name: Publish to PyPI
+        run: uv publish
+        env:
+          UV_PUBLISH_USERNAME: __token__
+          UV_PUBLISH_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}

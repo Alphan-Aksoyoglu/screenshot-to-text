@@ -1,0 +1,44 @@
+name: Publish to TestPyPI
+
+on:
+  push:
+    branches:
+      - testpypi
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Get base version
+        id: version
+        run: |
+          VERSION=$(python - << 'EOF'
+          from screenshot-to-text.__version__ import __version__
+          print(__version__)
+          EOF
+          )
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create dev version
+        run: |
+          DEV_VERSION="${{ steps.version.outputs.version }}.dev${{ github.run_number }}"
+          echo "DEV_VERSION=$DEV_VERSION" >> $GITHUB_ENV
+          sed -i "s/__version__ = \".*\"/__version__ = \"$DEV_VERSION\"/" screenshot-to-text/__version__.py
+
+      - name: Build
+        run: uv build
+
+      - name: Publish to TestPyPI
+        run: uv publish --publish-url https://test.pypi.org/legacy/
+        env:
+          UV_PUBLISH_USERNAME: __token__
+          UV_PUBLISH_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
