@@ -1,0 +1,87 @@
+macos:
+  screenshot:
+    flameshot:
+      name: flameshot
+      cmd: ["flameshot", "gui", "-s", "-p"]
+    screencapture:
+      name: screencapture
+      cmd: ["screencapture", "-i"]
+  clipboard:
+    pbcopy:
+      name: pbcopy
+      cmd: ["pbcopy"]
+  ocr:
+    tesseract:
+      name: tesseract
+      cmd:
+        - tesseract
+        - "--oem"
+        - "1"
+        - "--psm"
+        - "6"
+        - "--dpi"
+        - "1200"
+        - "-c"
+        - "textord_tabfind_vertical_text=0"
+        - "-c"
+        - "tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.,:;()[]{{}}=+-*/<>!@#%&|\"'\\ \t"
+        - "{filename}"
+        - "{filename_pdf}"
+        - "pdf"
+linux:
+  screenshot:
+    flameshot:
+      name: flameshot
+      cmd: ["flameshot", "gui", "-s", "-p"]
+    gnome-screenshot:
+      name: gnome-screenshot
+      cmd: ["gnome-screenshot", "-a", "-f"]     
+  clipboard:
+    xclip:
+      name: xclip
+      cmd: ["xclip", "-selection", "clipboard"]
+  ocr:  
+    tesseract:
+      name: tesseract
+      cmd:
+        - tesseract
+        - "--oem"
+        - "1"
+        - "--psm"
+        - "6"
+        - "--dpi"
+        - "1200"
+        - "-c"
+        - "textord_tabfind_vertical_text=0"
+        - "-c"
+        - "tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.,:;()[]{{}}=+-*/<>!@#%&|\"'\\ \t"
+        - "{filename}"
+        - "{filename_pdf}"
+        - "pdf"
+linux_wayland:
+  screenshot:
+    flameshot:
+      name: flameshot
+      cmd: ["flameshot", "gui", "-s", "-p"]
+  clipboard:
+    wl-copy:
+      name: wl-copy
+      cmd: ["wl-copy"]
+  ocr:
+    tesseract:
+      name: tesseract
+      cmd:
+        - tesseract
+        - "--oem"
+        - "1"
+        - "--psm"
+        - "6"
+        - "--dpi"
+        - "1200"
+        - "-c"
+        - "textord_tabfind_vertical_text=0"
+        - "-c"
+        - "tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.,:;()[]{{}}=+-*/<>!@#%&|\"'\\ \t"
+        - "{filename}"
+        - "{filename_pdf}"
+        - "pdf"

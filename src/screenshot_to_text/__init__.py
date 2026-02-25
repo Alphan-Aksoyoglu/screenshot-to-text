@@ -1,0 +1,1 @@
+from screenshot_to_text.__version__ import __version__
