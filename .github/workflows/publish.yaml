@@ -21,8 +21,11 @@ jobs:
       - name: Validate tag matches version
         run: |
           TAG="${GITHUB_REF#refs/tags/v}"
-          VERSION=$(python - << 'EOF'
-          from screenshot-to-text.__version__ import __version__
+          VERSION=$(uv run python - << 'EOF'
+          import sys
+          # Add current directory to path if not installed
+          sys.path.append(".") 
+          from screenshot_to_text.__version__ import __version__
           print(__version__)
           EOF
           )
