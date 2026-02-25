@@ -21,8 +21,12 @@ jobs:
       - name: Get base version
         id: version
         run: |
-          VERSION=$(python - << 'EOF'
-          from screenshot-to-text.__version__ import __version__
+          # Use uv run to ensure the local package is accessible
+          VERSION=$(uv run python - << 'EOF'
+          import sys
+          # Add current directory to path if not installed
+          sys.path.append(".") 
+          from screenshot_to_text.__version__ import __version__
           print(__version__)
           EOF
           )
@@ -32,7 +36,7 @@ jobs:
         run: |
           DEV_VERSION="${{ steps.version.outputs.version }}.dev${{ github.run_number }}"
           echo "DEV_VERSION=$DEV_VERSION" >> $GITHUB_ENV
-          sed -i "s/__version__ = \".*\"/__version__ = \"$DEV_VERSION\"/" screenshot-to-text/__version__.py
+          sed -i "s|__version__ = \".*\"|__version__ = \"$DEV_VERSION\"|" src/screenshot_to_text/__version__.py
 
       - name: Build
         run: uv build
