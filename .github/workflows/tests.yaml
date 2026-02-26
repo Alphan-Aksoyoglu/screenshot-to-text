@@ -43,3 +43,9 @@ jobs:
           source .venv/bin/activate
           uv sync
           uv run pytest -q
+
+      - name: No Tests Required
+        if: steps.changes.outputs.src == 'false'
+        run: |
+          echo "No Tests Required, skipping tests."
+
