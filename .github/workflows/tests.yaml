@@ -1,40 +1,49 @@
 name: Tests
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, main-testpypi ]
 
 jobs:
-  pytest:
+  filter:
     runs-on: ubuntu-latest
+    outputs:
+      run_tests: ${{ steps.filter.outputs.src }}
+    steps:
+      - name: Filter changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            src:
+              - 'src/**'
+              - 'tests/**'
+              - '.github/workflows/**'
 
+  pytest:
+    needs: filter
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
-
+        python-version: ["3.11","3.12","3.13","3.14"]
     steps:
       - uses: actions/checkout@v4
-
+        if: needs.filter.outputs.run_tests == 'true'
       - uses: actions/setup-python@v5
+        if: needs.filter.outputs.run_tests == 'true'
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install UV and Run Tests
+        if: needs.filter.outputs.run_tests == 'true' 
+        run: | 
+            pip install uv
+            uv venv
+            source .venv/bin/activate
+            uv sync
+            uv run pytest -q
 
-      - name: Install uv
-        run: pip install uv
-
-      - name: UV Env
+      - name: No Tests Required
+        if: needs.filter.outputs.run_tests == 'false'
         run: |
-          uv venv
-          source .venv/bin/activate 
+          echo "No Tests Required, skipping tests."
 
-      - name: Install deps
-        run: uv pip install -r pyproject.toml
-
-      - name: Install project
-        run: uv pip install -e .
-
-      - name: Run tests
-        run: uv run pytest -q
