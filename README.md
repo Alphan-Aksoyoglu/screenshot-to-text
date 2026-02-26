@@ -8,7 +8,7 @@ Built as a good enough solution until someone builds a cross platform super fast
 
 ## Watch it in Action
 
-![Demo](/media/screenshot-to-text-demo.gif)
+![Demo](https://raw.githubusercontent.com/Alphan-Aksoyoglu/screenshot-to-text/d17bb4e974e6a2d5d069a38471703a21b6863fdb/media/screenshot-to-text-demo.gif)
 
 ## Dependencies
 
