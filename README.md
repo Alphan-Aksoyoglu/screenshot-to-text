@@ -1,10 +1,27 @@
 # Screenshot to Text (S2T)
 
-A crossplatform CLI utility to extract text from a screenshot. Run it, select an area on your screen and the text will be copied to your clipboard.
+A crossplatform CLI utility to extract text from a screenshot. 
+
+Run it, select an area on your screen and the text will be copied to your clipboard.
 
 It relies on readily existing external tools for screenshotting, OCR, and clipboard management.
 
 Built as a good enough solution until someone builds a cross platform super fast native rust application that does the same thing better :sweat_smile: 
+
+## Status
+
+![Ubuntu (X11)](https://img.shields.io/badge/Linux%20(X11)-passing-success) ![Ubuntu 15.04 (Wayland)](https://img.shields.io/badge/Linux%20(Wayland)-passing-success) ![macOS](https://img.shields.io/badge/macOS-passing-success)
+
+<details>
+<summary> Testing Details</summary>
+
+| Platform | Tested On | Status
+|-|-|-|
+| Linux (X11)     | Native Ubuntu 24.04 (X11)      |![Status](https://img.shields.io/badge/passing-success) |
+| Linux (Wayland) | Quickemu Ubuntu 25.04 (Wayland)|![Status](https://img.shields.io/badge/passing-success) |
+| macOS | Quickemu macOS Sequoia         |![Status](https://img.shields.io/badge/passing-success) |
+
+</details>
 
 ## Watch it in Action
 
@@ -36,13 +53,7 @@ You will need to have one of the supported tools for each category installed on 
 
 `brew install tesseract`
 
-## Tests
 
-| Platform        | Tested On                                                                                      |
-| ----------------| -----------------------------------------------------------------------------------------------|
-| Linux (X11)     | ![Ubuntu (X11)](https://img.shields.io/badge/Ubuntu%2024.04%20(X11)-passing-success)                   |
-| Linux (Wayland) | ![Ubuntu 15.04 (Wayland)](https://img.shields.io/badge/Ubuntu%2025.04%20(Wayland)-passing-success) |
-| macOS Sequoia   | ![macOS Sequoia](https://img.shields.io/badge/macOS%20Sequoia-passing-success)                 |
 
 ## Installation and Configuration (First Use)
 
@@ -72,7 +83,7 @@ It will create a `config.toml` file in your user configuration directory.
 
 ## Usage
 
-To take a screenshot and extract text, run:
+To take a screenshot and extract text to clipboard, run:
 
 ```bash
 s2t run
