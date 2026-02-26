@@ -9,6 +9,7 @@ requires-python = ">=3.11"
 description= "Cross platform screenshot to text CLI"
 readme = "README.md"
 authors = [{name="Alphan Aksoyoglu", email="alphanbe@gmail.com"}]
+keywords = ["screenshot", "ocr", "clipboard", "screenshot to text"]
 dependencies = [
     "opencv-python-headless>=4.13.0.92",
     "platformdirs>=4.5.1",
@@ -18,6 +19,23 @@ dependencies = [
     "tomli-w>=1.2.0",
     "typer>=0.22.0",
 ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Utilities",
+]
 
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
@@ -25,6 +43,10 @@ license-files = ["LICEN[CS]E*"]
 [project.scripts]
 screenshot-to-text="screenshot_to_text.cli:app"
 s2t="screenshot_to_text.cli:app"
+
+[project.urls]
+Repository = "https://github.com/Alphan-Aksoyoglu/screenshot-to-text.git"
+Issues = "https://github.com/Alphan-Aksoyoglu/screenshot-to-text/issues"
 
 [tool.setuptools.packages.find]
 where=["src"]
